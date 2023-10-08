@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js element creation benchmark</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <h2>js element creation benchmark</h2>
+    <p>
+        This is a site to test the performance differences between methods of inserting elements to the DOM. For the first test:
+        <ol>
+            <li>Creating elements with <code>document.createElement</code> and appending it to the DOM one by one.</li>
+            <li>Creating elements with <code>document.createElement</code>, appending them to another element (that's not in DOM) and then appending that element.</li>
+            <li>Creating the HTML of desired elements and using <code>element.innerHTML</code> property to insert it to DOM.</li>
+        </ol>
+        The elements will also have a class and 2 attributes each, as well as basic text content.
+        The place in DOM where elements are inserted will be cleared between tests, since I want to prevent the overall size of the tree from affecting the performance.
+        As you've noticed, this site is also very minimal, so the inserted elements will make for the majority of the content.
+    </p>
+    <p>
+        Use the controls below to set the parameters and run the tests.
+    </p>
+    <div>
+        <input id="input-iterations" type="number" value="100000"><button type="button" id="btn-begin">Begin</button>
+    </div>
+    <div id="container-output"></div>
+
+    <h2>modifying the elements later</h2>
+    <p>
+        Sometimes we want to keep a reference to the inserted elements. The test below will generate a bunch of elements, insert them to the DOM,
+        and then alter their contents. Naturally, for the elements inserted using <code>.innerHTML</code>, we'll need to use <code>querySelector</code>
+        to acquire a reference. I'll omit the 2nd case here, since we've already estabilished that it's faster, and it won't be any different from the 1st one.
+    </p>
+    <p>
+        Use the controls below to set the parameters and run the tests.
+    </p>
+    <div>
+        <input id="input-iterations-ref" type="number" value="100000"><button type="button" id="btn-begin-ref">Begin</button>
+    </div>
+    <div id="container-output-ref"></div>
+
+    <h2>event listeners</h2>
+    <p>
+        Here we'll test the performance of assigning an event listener to every element individually (when using <code>createElement</code>), and just one listener
+        for the parent, which would then have to determine which element was clicked (when using <code>.innerHTML</code>). Note that we won't actually test the
+        performance of the listeners themselves, it's still just the element insertions.
+    </p>
+    <div>
+        <input id="input-iterations-ev" type="number" value="100000"><button type="button" id="btn-begin-ev">Begin</button>
+    </div>
+    <div id="container-output-ev"></div>
+
+    <p>
+        Check the javascript <a href="main.js">here</a>.
+    </p>
+
+    <div id="container-inserted-elements"></div>
+</body>
+</html>
